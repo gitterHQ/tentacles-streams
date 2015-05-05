@@ -4,7 +4,7 @@ A streaming GitHub client for pagenated results for node.js.
 
 ## What is Tentacles Streams?
 
-Tentacles Streams is an adapter for the [Tentacles](https://github.com/gitterHQ/tentacles) GitHub client. It takes pagenated results from the GitHub API and returns a stream of results.
+Tentacles Streams is an adapter for the [Tentacles](https://github.com/gitterHQ/tentacles) GitHub client. It takes pagenated results from the GitHub API and returns a stream of results. All pages of results will automatically be fetched from GitHub.
 
 ## Using Tentacles Streams
 
@@ -114,11 +114,34 @@ var TentaclesStreams = require('tentacles-streams');
 var client = new TentaclesStreams();
 var stream = client.issue.listForRepo('ruby/ruby', { stream: { progress: true } });
 
-/* .. or use events .. */
 stream.on('data', function(data) {
   var issue = data.item;
   console.log('Page #' + data.page + ' of #' + data.lastPage); // Page #1 of #3
   console.log('Item #' + data.pageIndex ' of #' + (data.pageLength - 1)); // Item #0 of #99
+});
+```
+
+## Backpressure, Pause and Resume
+
+The streams support backpressure and `pause` and `resume`
+
+```javascript
+var TentaclesStreams = require('tentacles-streams');
+
+var client = new TentaclesStreams();
+var stream = client.issue.listForRepo('ruby/ruby', { stream: { progress: true } });
+
+var count = 0;
+stream.on('data', function(issue) {
+  console.log(issue);
+  
+  /* Pause for 1s every hundred issues */
+  if (i % 100 === 0) {
+    stream.pause();
+    setTimeout(function() {
+      stream.resume();
+    }, 1000);
+  }
 });
 ```
 
