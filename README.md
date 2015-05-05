@@ -122,6 +122,21 @@ stream.on('data', function(data) {
 });
 ```
 
+## Skipping results
+
+If you want to skip some pages in the results, set `{ query: { page: X } }` in the options hash.
+
+```javascript
+var TentaclesStreams = require('tentacles-streams');
+
+var client = new TentaclesStreams();
+var stream = client.issue.listForRepo('ruby/ruby', { query: { page: 5 } });
+
+/* Will start streaming from page 5 of results */
+```
+
+
+
 ### Contributing
 
 Lovingly built by [Andrew Newdigate](https://github.com/suprememoocow)
