@@ -139,7 +139,7 @@ var stream = client.issue.listForRepo('ruby/ruby', { query: { page: 5 } });
 
 ### Contributing
 
-Lovingly built by [Andrew Newdigate](https://github.com/suprememoocow)
+Built by [Andrew Newdigate](https://github.com/suprememoocow)
 ([@suprememoocow](https://twitter.com/suprememoocow)) and the team at
 [Gitter](https://gitter.im).
 
