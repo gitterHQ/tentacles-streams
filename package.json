@@ -1,6 +1,6 @@
 {
   "name": "tentacles-streams",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Streaming for Tentacles GitHub client",
   "main": "lib/streaming-client.js",
   "scripts": {
