@@ -1,0 +1,25 @@
+{
+  "name": "tentacles-streams",
+  "version": "0.1.0",
+  "description": "Streaming for Tentacles GitHub client",
+  "main": "lib/streaming-client.js",
+  "scripts": {
+    "test": "mocha test/"
+  },
+  "keywords": [
+    "github",
+    "tentacles",
+    "streaming"
+  ],
+  "author": "Andrew Newdigate <andrew@gitter.im> (http://about.me/andrewnewdigate)",
+  "license": "MIT",
+  "dependencies": {
+    "event-stream": "^3.3.0",
+    "lodash": "^3.8.0",
+    "parse-links": "^0.1.0",
+    "tentacles": "^0.2.4"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.4"
+  }
+}
