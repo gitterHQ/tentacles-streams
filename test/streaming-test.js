@@ -3,6 +3,26 @@
 var TentaclesStreams = require('..');
 var assert = require('assert');
 
+function doneOnStream(stream, done) {
+  var finished = false;
+  stream.on('end', function() {
+    // Deal with end before error
+    setTimeout(function() {
+      if (!finished) {
+        finished = true;
+        done();
+      }
+    }, 10);
+  });
+
+  stream.on('error', function(err) {
+    finished = true;
+    done(err);
+  });
+
+}
+
+
 describe('streaming-client', function() {
   this.timeout(25000);
 
@@ -19,13 +39,13 @@ describe('streaming-client', function() {
       ++count;
     });
 
-    stream.on('end', function() {
+    doneOnStream(stream, function(err) {
+      if (err) return done(err);
+
       // This is very arbitary. TODO: better tests!
       assert(count > 10);
       done();
     });
-
-    stream.on('error', done);
   });
 
   it('should stream issues for repos', function(done) {
@@ -37,11 +57,7 @@ describe('streaming-client', function() {
       ++count;
     });
 
-    stream.on('end', function() {
-      done();
-    });
-
-    stream.on('error', done);
+    doneOnStream(stream, done);
   });
 
   it('should stream with batches', function(done) {
@@ -49,15 +65,14 @@ describe('streaming-client', function() {
     var stream = client.issue.listForRepo('ruby/ruby', { query: { state: 'all' }, stream: { batchPages: true } });
 
     stream.on('data', function(data) {
-      assert(data.length > 0);
-      assert(Array.isArray(data));
+      assert(Array.isArray(data.items));
+      assert(data.items.length > 0);
+      assert(data.page > 0);
+      assert(data.lastPage > 0);
     });
 
-    stream.on('end', function() {
-      done();
-    });
+    doneOnStream(stream, done);
 
-    stream.on('error', done);
   });
 
 });

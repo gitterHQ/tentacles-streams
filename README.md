@@ -105,8 +105,8 @@ All Tentacles methods starting with `list` are supported. Currently these are:
 ## Batching Pages
 
 You can configure Tentacles Streams to pump the each page of results through as
-an array, rather than individual items. To do this, set `{ stream: { batchPages: true } }`
-in the options hash.
+an hash of `{ items: [], page: n, lastPage: m }`, rather than individual items.
+To do this, set `{ stream: { batchPages: true } }` in the options hash.
 
 ```javascript
 var TentaclesStreams = require('tentacles-streams');
@@ -115,7 +115,9 @@ var client = new TentaclesStreams();
 var stream = client.issue.listForRepo('ruby/ruby', { stream: { batchPages: true } });
 
 stream.on('data', function(data) {
-  console.log(data.length); // 100 (or `per_page`) items
+  console.log(data.items.length); // 100 (or `per_page`) items
+  console.log(data.page); // 1 - n
+  console.log(data.lastPage); // n
 });
 ```
 
