@@ -102,22 +102,20 @@ All Tentacles methods starting with `list` are supported. Currently these are:
 * `tentacles.watching.listForUser(username, options)`
 * `tentacles.watching.listForAuthUser(options)`
 
-## Progress
+## Batching Pages
 
-If you want to get a rough idea of the progress of the stream, you can do this
-by passing `stream: { progress: true }` through the options hash. The stream will
-then consist of hashes with `{ item: page: lastPage: pageIndex: pageLength: }`.
+You can configure Tentacles Streams to pump the each page of results through as
+an array, rather than individual items. To do this, set `{ stream: { batchPages: true } }`
+in the options hash.
 
 ```javascript
 var TentaclesStreams = require('tentacles-streams');
 
 var client = new TentaclesStreams();
-var stream = client.issue.listForRepo('ruby/ruby', { stream: { progress: true } });
+var stream = client.issue.listForRepo('ruby/ruby', { stream: { batchPages: true } });
 
 stream.on('data', function(data) {
-  var issue = data.item;
-  console.log('Page #' + data.page + ' of #' + data.lastPage); // Page #1 of #3
-  console.log('Item #' + data.pageIndex ' of #' + (data.pageLength - 1)); // Item #0 of #99
+  console.log(data.length); // 100 (or `per_page`) items
 });
 ```
 
@@ -129,14 +127,14 @@ The streams support backpressure and `pause` and `resume`
 var TentaclesStreams = require('tentacles-streams');
 
 var client = new TentaclesStreams();
-var stream = client.issue.listForRepo('ruby/ruby', { stream: { progress: true } });
+var stream = client.issue.listForRepo('ruby/ruby');
 
 var count = 0;
 stream.on('data', function(issue) {
   console.log(issue);
-  
+
   /* Pause for 1s every hundred issues */
-  if (i % 100 === 0) {
+  if (++count % 100 === 0) {
     stream.pause();
     setTimeout(function() {
       stream.resume();

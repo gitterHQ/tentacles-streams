@@ -5,7 +5,7 @@ var assert = require('assert');
 
 describe('streaming-client', function() {
   this.timeout(25000);
-  
+
   it('should stream issues for users', function(done) {
     if (!process.env.GITHUB_ACCESS_TOKEN) {
       done(new Error('Please set GITHUB_ACCESS_TOKEN environment variable'));
@@ -44,18 +44,13 @@ describe('streaming-client', function() {
     stream.on('error', done);
   });
 
-  it('should stream with progress', function(done) {
+  it('should stream with batches', function(done) {
     var client = new TentaclesStreams({ accessToken: process.env.GITHUB_ACCESS_TOKEN });
-    var stream = client.issue.listForRepo('ruby/ruby', { query: { state: 'all' }, stream: { progress: true } });
+    var stream = client.issue.listForRepo('ruby/ruby', { query: { state: 'all' }, stream: { batchPages: true } });
 
-    var count = 0;
     stream.on('data', function(data) {
-      assert(data.item);
-      assert(data.page);
-      assert(data.lastPage);
-      assert(data.pageIndex >= 0);
-      assert(data.pageLength);
-      ++count;
+      assert(data.length > 0);
+      assert(Array.isArray(data));
     });
 
     stream.on('end', function() {
