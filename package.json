@@ -21,5 +21,16 @@
   },
   "devDependencies": {
     "mocha": "^2.2.4"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitterHQ/tentacles-streams.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gitterHQ/tentacles-streams/issues"
+  },
+  "homepage": "https://github.com/gitterHQ/tentacles-streams#readme"
 }
