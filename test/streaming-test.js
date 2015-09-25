@@ -26,28 +26,6 @@ function doneOnStream(stream, done) {
 describe('streaming-client', function() {
   this.timeout(25000);
 
-  it('should stream issues for users', function(done) {
-    if (!process.env.GITHUB_ACCESS_TOKEN) {
-      done(new Error('Please set GITHUB_ACCESS_TOKEN environment variable'));
-    }
-
-    var client = new TentaclesStreams({ accessToken: process.env.GITHUB_ACCESS_TOKEN });
-    var stream = client.issue.listAllVisibleForAuthUser({ query: { state: 'all', per_page: 10 } });
-
-    var count = 0;
-    stream.on('data', function() {
-      ++count;
-    });
-
-    doneOnStream(stream, function(err) {
-      if (err) return done(err);
-
-      // This is very arbitary. TODO: better tests!
-      assert(count > 10);
-      done();
-    });
-  });
-
   it('should stream issues for repos', function(done) {
     var client = new TentaclesStreams({ accessToken: process.env.GITHUB_ACCESS_TOKEN });
     var stream = client.issue.listForRepo('ruby/ruby', { query: { state: 'all' } });

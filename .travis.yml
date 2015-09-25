@@ -2,13 +2,9 @@ language: node_js
 node_js:
 - '0.12'
 - '0.10'
+sudo: false
 before_script:
 - npm install
-env:
-  global:
-  - secure: fQgGBFMGfj9PLZnlUs5xf+H8fESBL9nPsQ1Eo1wF051L++SF9AziDyatGxp2CBN0jYDx0Ub0uJPc4tXrSs4JOXGTCwXzY0PTEEivWlXOGhB0eyxSBKmPKoFzZLBhSQrWeVjvmAHPw3XxvlE7usdhrMqoWyjxk6mCLNNsXiCqIIc=
-  - secure: YnsXRdMw/AXeYUOxQ7YLtLLpHYIu+BRJSAt5Sa4MBUgvN9M9dOOD3LEw6gkqWbKf4OSBN0tVTHf08td3vBbU3gGYzwXTDzEl3WHM1YdD1fSjfAHBmFIF/fAYISHUotwZbS1Ya9CkEjOE2dfM6GnM6dPQ8GOQAJ4YHvu4Gom67ko=
-  - secure: TnPkpao0TjMMeS4Hs8F0jzCCy5rChP5dYeI1KrzlNn8ji/JzdGI1IUsQE1tud6Wl3IXL4gAD+SRWRNBf11Fy2EMQwjiTTzCyNpDIxWYBgUz4nZKMwUBPAgpwRl+Sv4qoO+oRyd/qbqKl0Bi8bcgqu/hVIDTswiSHyirMnhdMH5I=
 deploy:
   provider: npm
   email: andrewn@datatribe.net
@@ -17,3 +13,7 @@ deploy:
   on:
     tags: true
     node: '0.10'
+env:
+  global:
+  - secure: C2Qt8INQLZqRLGYH6st+GEp+8SVIDH/JQ4P1rURjZo14Nk3hLNGvymJAQPpMZwKMZ47k4MvxyUgoXWk3VW4OgdOxiVKfFah7YBMs8hFCIM8xu0zcK/wCgAwM0WuPAw5cqI+uSmVhEKQVNyaOAkCaa8vljg2ZwA1knmzbIIV38YE=
+  - secure: eQ4GGY/fKVsEx6ma/73yCA0XtKsuLBE8UqOH+SXlghhm+X78ZAIurMWUlD2HzcXdwVDo4iDKUJT44GAsesHape/8vzrMIUcpRdggZVi8FCEdjCI9KaEumPxgqQx3XROSuzW6QewM/7MoNuL0bAjpH60zTEJgI8XIvviQLjzkqEM=
