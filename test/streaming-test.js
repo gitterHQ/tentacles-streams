@@ -60,6 +60,22 @@ describe('streaming-client', function() {
     doneOnStream(stream, done);
   });
 
+  it('should respect the maxPages parameter', function(done) {
+    var client = new TentaclesStreams({ accessToken: process.env.GITHUB_ACCESS_TOKEN });
+    var stream = client.issue.listForRepo('ruby/ruby', { query: { state: 'all', per_page: 20 }, maxPages: 2 });
+
+    var count = 0;
+    stream.on('data', function() {
+      ++count;
+    });
+
+    doneOnStream(stream, function(err) {
+      if (err) return done(err);
+      assert.strictEqual(count, 40);
+      done();
+    });
+  });
+
   it('should stream with batches', function(done) {
     var client = new TentaclesStreams({ accessToken: process.env.GITHUB_ACCESS_TOKEN });
     var stream = client.issue.listForRepo('ruby/ruby', { query: { state: 'all' }, stream: { batchPages: true } });
