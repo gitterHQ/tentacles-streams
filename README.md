@@ -65,6 +65,10 @@ All Tentacles methods starting with `list` are supported. Currently these are:
 * `tentacles.issue.listForOrgForAuthUser(full_name, options)`
 * `tentacles.issue.listForRepo(full_name, options)`
 
+**IssueComment**:
+* `tentacles.issueComment.listForIssue(full_name, number, options)`
+* `tentacles.issueComment.listForRepo(full_name, options)`
+
 **IssueLabel**:
 * `tentacles.issueLabel.listForRepo(full_name, options)`
 * `tentacles.issueLabel.listForIssue(full_name, number, options)`
