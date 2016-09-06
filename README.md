@@ -44,30 +44,64 @@ stream.on('error', function(err) {
 
 All Tentacles methods starting with `list` are supported. Currently these are:
 
-**Git Refs**:
-* `tentacles.gitRef.listAll(full_name, options)`
+**Events**:
+* `tentacles.events.listPublic(options)`
+* `tentacles.events.listForRepo(full_name, options)`
+* `tentacles.events.listIssueEventsForRepo(full_name, options)`
+* `tentacles.events.listNetworkEventsForRepo(full_name, options)`
+* `tentacles.events.listForOrg(org, options)`
+* `tentacles.events.listReceivedEventsForUser(username, options)`
+* `tentacles.events.listPublicReceivedEventsForUser(username, options)`
+* `tentacles.events.listEventsForUser(username, options)`
+* `tentacles.events.listPublicEventsForUser(username, options)`
+* `tentacles.events.listForUserInOrg(username, org, options)`
 
-**Issues**:
+**GitRef**:
+* `tentacles.gitRef.listAll(full_name, ref, options)`
+
+**Issue**:
 * `tentacles.issue.listAllVisibleForAuthUser(options)`
 * `tentacles.issue.listAllOwnerAndMemberForAuthUser(options)`
-* `tentacles.issue.listForOrgForAuthUser(org, options)`
+* `tentacles.issue.listForOrgForAuthUser(full_name, options)`
 * `tentacles.issue.listForRepo(full_name, options)`
 
-**Orgs**:
+**IssueLabel**:
+* `tentacles.issueLabel.listForRepo(full_name, options)`
+* `tentacles.issueLabel.listForIssue(full_name, number, options)`
+* `tentacles.issueLabel.listForMilestone(full_name, number, options)`
+
+**Org**:
 * `tentacles.org.listForAuthUser(options)`
 * `tentacles.org.listForUser(username, options)`
+* `tentacles.org.listAll(options)`
 
-**Org Membership**:
+**OrgMember**:
 * `tentacles.orgMember.listMembers(org, options)`
 * `tentacles.orgMember.listPublicMembers(org, options)`
 * `tentacles.orgMember.listMembershipsForAuthUser(options)`
 
-**Pull Requests**:
+**OrgTeam**:
+* `tentacles.org.listForOrg(org, options)`
+* `tentacles.org.listMembers(id, options)`
+* `tentacles.org.listRepos(id, options)`
+* `tentacles.org.listForAuthUser(full_name, options)`
+
+**PullRequest**:
 * `tentacles.pullRequest.listForRepo(full_name, options)`
 * `tentacles.pullRequest.listCommits(full_name, number, options)`
 * `tentacles.pullRequest.listFiles(full_name, number, options)`
 
-**Repos**:
+**PullRequestComment**:
+* `tentacles.pullRequestComments.listForPullRequest(full_name, number, options)`
+* `tentacles.pullRequestComments.listForRepo(full_name, options)`
+
+**Reaction**:
+* `tentacles.reactions.listForCommitComment(full_name, id, options)`
+* `tentacles.reactions.listForIssue(full_name, number, options)`
+* `tentacles.reactions.listForIssueComment(full_name, id, options)`
+* `tentacles.reactions.listForPullRequestReviewComment(full_name, id, options)`
+
+**Repo**:
 * `tentacles.repo.listForAuthUser(options)`
 * `tentacles.repo.listForUser(username, options)`
 * `tentacles.repo.listForOrg(org, options)`
@@ -77,21 +111,27 @@ All Tentacles methods starting with `list` are supported. Currently these are:
 * `tentacles.repo.listTags(full_name, options)`
 * `tentacles.repo.listBranches(full_name, options)`
 
-**Repo Collaborators**:
+**RepoCollaborator**:
 * `tentacles.repoCollaborator.list(full_name, options)`
 
-**Repo Commits**:
+**RepoCommit**:
 * `tentacles.repoCommit.list(full_name, options)`
+
+**RepoWebhooks**:
+* `tentacles.repoWebHooks.list(full_name, options)`
 
 **Starring**:
 * `tentacles.starring.listForRepo(full_name, options)`
 * `tentacles.starring.listForUser(username, options)`
 * `tentacles.starring.listForAuthUser(options)`
 
-**User Emails**:
+**User**:
+* `tentacles.user.listAll(options)`
+
+**UserEmail**:
 * `tentacles.userEmail.listForAuthUser(options)`
 
-**User Followers**:
+**UserFollower**:
 * `tentacles.userFollower.listForUser(username, options)`
 * `tentacles.userFollower.listForAuthUser(options)`
 * `tentacles.userFollower.listFollowingForUser(username, options)`
